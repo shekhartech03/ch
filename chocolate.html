@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepu Day 🍫❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+*{
+    -webkit-tap-highlight-color: transparent;
+}
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#5a1f2e,#14070b);
+    font-family:'Poppins',sans-serif;
+    overflow:hidden;
+    color:white;
+}
+
+/* FLOATING SWEETS */
+.float{
+    position:fixed;
+    bottom:-40px;
+    font-size:22px;
+    animation:floatUp 10s linear infinite;
+    opacity:.9;
+}
+@keyframes floatUp{
+    0%{transform:translateY(0) rotate(0);opacity:0}
+    10%{opacity:1}
+    100%{transform:translateY(-120vh) rotate(360deg);opacity:0}
+}
+
+/* CARD */
+.card{
+    background:rgba(255,255,255,.14);
+    backdrop-filter:blur(16px);
+    border-radius:32px;
+    padding:42px 32px 48px;
+    width:420px;
+    max-width:92%;
+    text-align:center;
+    box-shadow:0 30px 80px rgba(0,0,0,.75);
+    animation:pop 1.2s ease;
+}
+@keyframes pop{
+    from{opacity:0;transform:scale(.7)}
+    to{opacity:1;transform:scale(1)}
+}
+
+h1{
+    font-size:2.4rem;
+    color:#ffb6c1;
+}
+p{
+    margin:16px 0 36px;
+    line-height:1.6;
+    font-size:1.05rem;
+}
+
+/* BUTTON */
+button{
+    padding:18px 44px;
+    border:none;
+    border-radius:60px;
+    font-size:1.1rem;
+    font-weight:700;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(135deg,#ff4d6d,#ff1e56);
+    box-shadow:0 18px 40px rgba(0,0,0,.6);
+    animation:pulse 1.4s infinite;
+}
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.14)}
+    100%{transform:scale(1)}
+}
+
+/* CHOCOLATE HEART */
+.choco{
+    position:fixed;
+    font-size:22px;
+    animation:blast 1.6s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes blast{
+    to{
+        transform:translate(var(--x),var(--y)) scale(0);
+        opacity:0;
+    }
+}
+
+/* GLOW HEART OUTLINE */
+.glow-heart{
+    position:fixed;
+    font-size:120px;
+    color:#ff7a9e;
+    text-shadow:
+        0 0 20px #ff4d6d,
+        0 0 40px #ff1e56,
+        0 0 80px #ff1e56;
+    animation:glow 2s ease forwards;
+    pointer-events:none;
+}
+@keyframes glow{
+    from{opacity:0;transform:scale(.6)}
+    to{opacity:1;transform:scale(1)}
+}
+
+/* MESSAGE */
+.message{
+    display:none;
+    margin-top:36px;
+    font-size:1.25rem;
+    color:#fff7c2;
+    animation:fadeUp 1s ease;
+}
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(25px)}
+    to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Chocolate Day 🍫❤️</h1>
+    <p>
+        Deepu 💖<br>
+        One tap… and my whole heart opens for you ✨
+    </p>
+
+    <button id="btn" onclick="surprise()">Tap for Surprise 🎁</button>
+
+    <div class="message" id="msg">
+        🍫❤️✨<br><br>
+        This heart is made only of chocolates…<br>
+        because my love for you is that sweet 🍬<br><br>
+        Forever yours 😘
+        shekhuuu ji🐼💕
+    </div>
+</div>
+
+<!-- Romantic music -->
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_5d9c92c2c0.mp3?filename=romantic-piano-ambient-117127.mp3">
+</audio>
+
+<script>
+/* FLOATING SWEETS */
+const sweets=["🍫","🍬","🍭"];
+for(let i=0;i<24;i++){
+    let f=document.createElement("div");
+    f.className="float";
+    f.innerHTML=sweets[Math.floor(Math.random()*sweets.length)];
+    f.style.left=Math.random()*100+"vw";
+    f.style.animationDelay=Math.random()*6+"s";
+    f.style.fontSize=(Math.random()*14+18)+"px";
+    document.body.appendChild(f);
+}
+
+function surprise(){
+    document.getElementById("msg").style.display="block";
+    document.getElementById("btn").style.display="none";
+
+    /* PLAY MUSIC */
+    document.getElementById("music").play();
+
+    const cx=window.innerWidth/2;
+    const cy=window.innerHeight/2;
+
+    /* CHOCOLATE HEART SHAPE */
+    for(let i=0;i<100;i++){
+        const t=i/100*Math.PI*2;
+        const x=16*Math.pow(Math.sin(t),3);
+        const y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
+
+        let c=document.createElement("div");
+        c.className="choco";
+        c.innerHTML="🍫";
+        c.style.left=cx+"px";
+        c.style.top=cy+"px";
+        c.style.setProperty("--x",x*18+"px");
+        c.style.setProperty("--y",y*18+"px");
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),1600);
+    }
+
+    /* GLOW HEART OUTLINE */
+    let g=document.createElement("div");
+    g.className="glow-heart";
+    g.innerHTML="❤️";
+    g.style.left=cx-60+"px";
+    g.style.top=cy-80+"px";
+    document.body.appendChild(g);
+}
+</script>
+
+</body>
+</html>
